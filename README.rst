@@ -1,6 +1,9 @@
 Awesome WM Copycats
 ===================
 
+This is my personal awesomewm setup. The only (current) requirement over the normal awesome-copycats setup is that the binary
+`sp` which can be found here. https://gist.github.com/streetturtle/fa6258f3ff7b17747ee3
+
 -------------------------
 Themes for Awesome WM 4.x
 -------------------------
