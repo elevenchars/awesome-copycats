@@ -247,8 +247,8 @@ globalkeys = my_table.join(
     -- TODO: update
     awful.key({ altkey }, "p", function() 
         naughty.notify({title = "Screenshot attempt"})
-        awful.spawn.easy_async(os.getenv("HOME") .. ".config/awesome/screenshot", function(stdout, stderr, reason, exit_code)
-            naughty.notify({title = "Screenshot taken", text = exit_code})
+        awful.spawn.easy_async(os.getenv("HOME") .. "/.config/awesome/screenshot", function(stdout, stderr, reason, exit_code)
+            naughty.notify({title = "Screenshot taken", text = stdout, icon = stdout})
         end)
     end,
             {description = "take a screenshot", group = "hotkeys"}),
