@@ -245,8 +245,13 @@ globalkeys = my_table.join(
     -- Take a screenshot
     -- https://github.com/lcpz/dots/blob/master/bin/screenshot
     -- TODO: update
-    awful.key({ altkey }, "p", function() os.execute("screenshot") end,
-              {description = "take a screenshot", group = "hotkeys"}),
+    awful.key({ altkey }, "p", function() 
+        naughty.notify({title = "Screenshot attempt"})
+        awful.spawn.easy_async(os.getenv("HOME") .. ".config/awesome/screenshot", function(stdout, stderr, reason, exit_code)
+            naughty.notify({title = "Screenshot taken", text = exit_code})
+        end)
+    end,
+            {description = "take a screenshot", group = "hotkeys"}),
 
     -- X screen locker
     awful.key({ altkey, "Control" }, "l", function () os.execute(scrlocker) end,
