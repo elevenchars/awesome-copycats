@@ -6,3 +6,5 @@ mkdir -p $targetbase
 [ -d $targetbase ] || exit 1
 scrot $targetbase/$timestamp.png
 xclip -selection clipboard -t image/png -i < $targetbase/$timestamp.png
+
+echo "$targetbase/$timestamp.png"
