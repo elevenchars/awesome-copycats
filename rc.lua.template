@@ -244,15 +244,22 @@ root.buttons(my_table.join(
 globalkeys = my_table.join(
     -- Take a screenshot
     -- https://github.com/lcpz/dots/blob/master/bin/screenshot
-    -- TODO: update
     awful.key({ altkey }, "p", function() 
-        naughty.notify({title = "Screenshot attempt"})
+        -- naughty.notify({title = "Screenshot attempt"})
         awful.spawn.easy_async(os.getenv("HOME") .. "/.config/awesome/screenshot", function(stdout, stderr, reason, exit_code)
-            naughty.notify({title = "Screenshot taken", text = stdout, icon = stdout})
+            naughty.notify({title = "Screenshot taken", text = stdout})
         end)
     end,
             {description = "take a screenshot", group = "hotkeys"}),
-
+    
+    -- Take a screenshot (cropped)
+    -- This does not work. will have to look around some more
+    -- awful.key({ altkey, "Shift" }, "p", function()
+    --     awful.spawn.easy_async_with_shell(os.getenv("HOME") .. "/.config/awesome/screenshot-crop", function(stdout, stderr, reason, exit_code)
+    --         naughty.notify({title = "Screenshot taken " .. exit_code, text = stdout})
+    --     end)
+    -- end,
+    --         {description = "take a cropped screenshot", group = "hotkeys"}),
     -- X screen locker
     awful.key({ altkey, "Control" }, "l", function () os.execute(scrlocker) end,
               {description = "lock screen", group = "hotkeys"}),
@@ -507,7 +514,7 @@ globalkeys = my_table.join(
     --[[ Menubar ]]
     awful.key({ modkey }, "p", function() menubar.show() end,
               {description = "show the menubar", group = "launcher"}),
-              
+
     --[[ dmenu
     awful.key({ modkey }, "x", function ()
             os.execute(string.format("dmenu_run -i -fn 'Monospace' -nb '%s' -nf '%s' -sb '%s' -sf '%s'",
