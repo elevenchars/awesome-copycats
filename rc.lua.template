@@ -679,10 +679,17 @@ awful.rules.rules = {
     { rule_any = { type = { "dialog", "normal" } },
       properties = { titlebars_enabled = true } },
 
-    -- Map Discord, Spotify to the second tag of the 1st screen
+    -- Discord, Spotify, Signal
+    -- secondary monitor, 2nd tag
     { rule_any = { class = {"discord", "[Ss]potify"} },
       properties = { screen = 1, tag = awful.util.tagnames[2] } },
 
+    -- Games
+    -- primary monitor, 2nd tag
+    { rule_any = { class = {"Steam",} },
+        properties = { screen = 2, tag = awful.util.tagnames[2]} },
+
+    -- default but useful
     { rule = { class = "Gimp", role = "gimp-image-window" },
           properties = { maximized = true } },
 }
@@ -701,6 +708,32 @@ client.connect_signal("manage", function (c)
         -- Prevent clients from being unreachable after screen count changes.
         awful.placement.no_offscreen(c)
     end
+end)
+
+client.connect_signal("property::class", function(c)
+    
+end)
+
+client.connect_signal("property::class", function(c)
+    -- Handle spotify stupidity
+    if c.class == "Spotify" then 
+        awful.rules.apply(c) 
+    end 
+
+    -- Steam game detection
+    awful.spawn.easy_async("xprop -id " .. c.window, function(stdout, stderr, reason, exit_code)
+        if stdout:find("STEAM_GAME") then
+            -- debug
+            -- naughty.notify( {
+            --     title = "Steam Game Found",
+            --     text = c.name
+            -- })
+
+            -- move any steam games
+            c:move_to_tag(awful.util.tagnames[2])
+            c:move_to_screen(2)
+        end
+    end)
 end)
 
 -- Add a titlebar if titlebars_enabled is set to true in the rules.
