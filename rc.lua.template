@@ -686,7 +686,7 @@ awful.rules.rules = {
 
     -- Games
     -- primary monitor, 2nd tag
-    { rule_any = { class = {"Steam",} },
+    { rule_any = { class = {"Steam", "MultiMC", "Minecraft", "xonotic", "retroarch"} },
         properties = { screen = 2, tag = awful.util.tagnames[2]} },
 
     -- default but useful
