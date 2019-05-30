@@ -57,7 +57,7 @@ local function run_once(cmd_arr)
     end
 end
 
-run_once({ "urxvtd", "unclutter -root" }) -- entries must be separated by commas
+run_once({ "urxvtd", "unclutter -root", "nm-applet" }) -- entries must be separated by commas
 
 -- This function implements the XDG autostart specification
 --[[
@@ -681,7 +681,7 @@ awful.rules.rules = {
 
     -- Discord, Spotify, Signal
     -- secondary monitor, 2nd tag
-    { rule_any = { class = {"discord", "[Ss]potify"} },
+    { rule_any = { class = {"discord", "[Ss]potify", "[Ss]ignal"} },
       properties = { screen = 1, tag = awful.util.tagnames[2] } },
 
     -- Games
@@ -730,8 +730,8 @@ client.connect_signal("property::class", function(c)
             -- })
 
             -- move any steam games
-            c:move_to_tag(awful.util.tagnames[2])
             c:move_to_screen(2)
+            c:move_to_tag(awful.util.tagnames[2])
         end
     end)
 end)
